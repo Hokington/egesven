@@ -1,0 +1,27 @@
+{% extends 'base.html' %} {% load static %} {% block title %} Inicio {% endblock %} {% block content %}
+<section class="flex flex-col items-center justify-center">
+  <form method="get" action="{% url 'buscar_producto' %}" class="pb-8 flex">
+    <input class="px-4 py-2 rounded-full border border-black border-r-0 rounded-r-none w-[400px]" placeholder="Busca un producto aquí..." type="search" name="q" value="{{ query }}" />
+    <button class="flex gap-2 border border-black rounded-full px-3 py-1 items-center justify-center rounded-l-none bg-black"><img class="w-4 h-4 invert" src="{% static 'media/search.svg' %}" alt="Buscar"></button>
+  </form>
+  {% if productos %}
+    <div id="product-container" class="grid grid-cols-3 gap-6 w-full max-w-screen-lg">
+      {% for producto in productos %}
+            <div class="flex flex-col items-center justify-center w-full p-4 rounded-md bg-[#F0EFEB] border border-black">
+              <img src="{% static 'media/vinyl.jpg' %}" class="rounded-md w-[240px]" alt="{{ producto.nombre }}" />
+              <h2 class="pt-2 pb-1 font-bold text-lg">{{ producto.nombre }}</h2>
+              <p class="text-gray-800 text-sm italic text-center pb-2">{{ producto.descripcion }}</p>
+              <p class="text-gray-800 text-md" >Precio: <span class="font-bold">$ {{ producto.precio }}</span></p>
+              <p class="text-gray-800 text-xs" >Stock: {{ producto.stock }}, Categoría: {{ producto.categoria.nombre }}</p>
+              <div data-id="{{ producto.id }}"  class="flex gap-3 pt-4 px-2 product">
+                <a class="px-3 py-1  rounded-full border border-black bg-[#A5A58D] hover:brightness-110 " href="{% url 'detalle_producto' producto.id %}">Ver más</a>
+                <button class="px-3 py-1 rounded-full border border-black bg-[#EDDCD2] hover:brightness-110  add-to-cart">Agregar al Carrito</button>
+              </div>
+            </div>
+        {% endfor %}
+      </div>
+    {% else %}
+    <p class="w-full text-gray-800 font-lg italic text-center">No se encontraron resultados... <a class="underline text-gray-950" href="{% url 'index' %}">Regresar</a></p>
+    {% endif %}
+</section>
+{% endblock %}

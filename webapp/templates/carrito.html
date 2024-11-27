@@ -1,0 +1,28 @@
+{% extends 'base.html' %} {% load static %} {% block title %} Carrito {% endblock %} {% block content %}
+<section class="flex flex-col items-center justify-center">
+    <ul id="product-container" class="flex flex-col gap-3 w-full max-w-screen-lg">
+      {% for producto in productos %}
+      <li class="px-4 py-2 border rounded-md border-[#A5A58D] bg-[#F0EFEB] flex items-center justify-between gap-3">
+        <div class="flex items-center gap-3">
+          <img class="h-20 rounded" src="{% static 'media/vinyl.jpg' %}" alt="{{ producto.producto }}">
+          <h2 class="font-semibold text-xl">
+            {{ producto.producto }}
+          </h2>
+        </div>
+        <div class="flex items-center justify-center gap-4">
+            <p class="text-sm text-gray-800">Subtotal: <span class="text-base text-black">${{ producto.subtotal }}</span></p>
+            <div class="bg-white px-8 h-10 rounded-md text-center grid place-content-center">
+              <span class="text-lg">{{ producto.cantidad }}</span>
+            </div>
+            <button class="hover:brightness-90">
+              <img class="h-10 rounded" src="{% static 'media/x.svg' %}" alt="{{ producto.producto }}">
+            </button>
+          </div>
+        </div>
+        {% endfor %}
+    </ul>
+    <div class="pt-12">
+      <a class="bg-[#EDDCD2] hover:brightness-105 px-6 py-2 border border-black rounded-full font-lg" href="{% url 'checkout' %}">Ir al Checkout</a>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Egesven{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <script src="{% static 'cart.js' %}" defer></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <div class="block border-b">{% include 'components/header.html' %}</div>
+    <main class="block max-w-screen-2xl min-h-[480px] mx-auto py-12">
+      {% block content %} {% endblock %}
+    </main>
+    <div class="bg-[#DDBEA9] min-h-48">
+      {% include 'components/footer.html' %}
+    </div>
+  </body>
+</html>

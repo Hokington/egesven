@@ -1,0 +1,18 @@
+{% extends 'base.html' %} {% load static %} {% block title %} Carrito {% endblock %} {% block content %}
+<section class="flex items-center justify-center gap-8">
+    <img src="{% static 'media/login.svg' %}" class="max-w-72 w-full" alt="Logeate">
+      <form class="w-full max-w-[320px] border border-[#A5A58D] rounded-md bg-[#F0EFEB] flex flex-col items-center justify-center px-6 py-4 gap-4" method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <h2 class="font-bold text-xl text-left w-full" >Iniciar Sesion</h2>
+        <div class="block w-full ">
+            <label class="text-sm block text-gray-800" for="nombre">Email</label>
+            <input name="email" type="email" class="rounded-md border block w-full px-2 py-1">
+        </div>
+        <div class="block w-full ">
+            <label class="text-sm block text-gray-800" for="nombre">Contraseña</label>
+            <input name="password" type="password" class="rounded-md border block w-full px-2 py-1">
+        </div>
+        <button class="block w-full px-2 py-2 mt-4 rounded-md bg-black hover:brightness-110 text-gray-200">Iniciar sesión</button>
+      </form>
+</section>
+{% endblock %}

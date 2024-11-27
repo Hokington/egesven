@@ -1,0 +1,56 @@
+{% load static %}
+
+<!--
+
+TO DO:
+
+- Responsive
+- if user.isauthenticated
+- Url Login
+- Url logout
+- Url register
+
+ 
+-->
+<header
+  class="flex justify-between items-center w-full mx-auto max-w-screen-2xl p-4"
+>
+  <a href="{% url 'index' %}">
+    <img src="{% static 'media/logo.png' %}" alt="eGesven" />
+  </a>
+
+  {% if user.is_authenticated %}
+  <div class="flex items-center gap-8">
+    <div class="flex gap-4 w-72">
+      <img src="{% static 'media/user.svg' %}" alt="usuario" />
+      <p class="text-gray-800 text-sm flex-1">
+        ¡Bienvenido!<br /><span class="font-bold"
+          >{{ user.username|default:"Nombre Usuario" }}</span
+        >
+      </p>
+    </div>
+    <a class="relative" href="{% url 'carrito' %}">
+      <img src="{% static 'media/cart.svg' %}" alt="Carrito" />
+      <div class="bg-blue-700 rounded-full text-xs text-center text-white grid place-content-center w-6 h-6 absolute -bottom-3 -right-3"> <span id="carrito-contador">0</span> </div>
+    </a>
+    <a
+      class="px-4 py-2 border border-black rounded-full"
+      href="{% url 'logout' %}"
+      >Cerrar sesión</a
+    >
+  </div>
+  {% else %}
+  <div class="flex gap-8">
+    <a
+      class="px-4 py-2 border border-black rounded-full"
+      href="{% url 'login' %}"
+      >Iniciar sesión</a
+    >
+    <a
+      class="px-4 py-2 border border-black rounded-full"
+      href="{% url 'register' %}"
+      >Registrarse</a
+    >
+  </div>
+  {% endif %}
+</header>
