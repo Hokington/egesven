@@ -1,0 +1,28 @@
+{% extends 'base.html' %} {% load static %} {% block title %} Carrito {% endblock %} {% block content %}
+<section class="flex items-center justify-center gap-8">
+    {% if user.role == 'admin' %}
+    <a class="block w-full aspect-square max-w-[350px] bg-[#DDBEA9] flex flex-col items-center justify-center gap-3 rounded-md hover:brightness-90" href="{% url 'index' %}">
+        <img class="max-w-[80px]" src="{% static 'media/arrow.svg' %}" alt="flecha">
+        <img class="w-[50px]" src="{% static 'media/user.svg' %}"  alt="icono">
+        <h2 class="text-3xl font-semibold tracking-wide">
+            Usuarios
+        </h2>
+    </a>
+    {% endif %}
+
+    <a class="block w-full aspect-square max-w-[350px] bg-[#DDBEA9] flex flex-col items-center justify-center gap-3 rounded-md hover:brightness-90" href="{% url 'products:list' %}">
+        <img class="max-w-[80px]" src="{% static 'media/arrow.svg' %}" alt="flecha">
+        <img class="w-[50px]" src="{% static 'media/products.svg' %}"  alt="icono">
+        <h2 class="text-3xl font-semibold tracking-wide">
+            Productos
+        </h2>
+    </a>
+    <a class="block w-full aspect-square max-w-[350px] bg-[#DDBEA9] flex flex-col items-center justify-center gap-3 rounded-md hover:brightness-90" href="{% url 'index' %}">
+        <img class="max-w-[80px]" src="{% static 'media/arrow.svg' %}" alt="flecha">
+        <img class="w-[50px]" src="{% static 'media/delivery.svg' %}"  alt="icono">
+        <h2 class="text-3xl font-semibold tracking-wide">
+            Despachos
+        </h2>
+    </a>
+</section>
+{% endblock %}

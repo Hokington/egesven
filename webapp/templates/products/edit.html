@@ -1,0 +1,38 @@
+{% extends 'base.html' %} {% load static %} {% block title %} Inicio {% endblock %} {% block content %}
+    <section class="max-w-screen-sm mx-auto">
+        <div class="flex justify-between items-baseline">
+            <h1 class="text-3xl font-semibold text-center mb-8">Editar producto</h1>
+            <a class="px-5 py-2 border border-black rounded-full bg-[#A5A58D] hover:brightness-110" href="{% url 'products:list' %}">Volver</a>
+        </div>
+        <form class="grid grid-cols-1 gap-4 p-6 bg-[#F0EFEB] border border-[#A5A58D] rounded"  method="POST">
+            {% csrf_token %}
+            <div class="flex flex-col">
+                <label for="id_nombre" class="font-medium text-gray-900 mb-2">Nombre</label>
+                {{ form.nombre }}
+            </div>
+
+            <div class="flex flex-col">
+                <label for="id_descripcion" class="font-medium text-gray-900 mb-2">Descripción</label>
+                {{ form.descripcion }}
+            </div>
+
+            <div class="flex flex-col">
+                <label for="id_precio" class="font-medium text-gray-900 mb-2">Precio</label>
+                {{ form.precio }}
+            </div>
+
+            <div class="flex flex-col">
+                <label for="id_stock" class="font-medium text-gray-900 mb-2">Stock</label>
+                {{ form.stock }}
+            </div>
+
+            <div class="flex flex-col">
+                <label for="id_categoria" class="font-medium text-gray-900 mb-2">Categoría</label>
+                {{ form.categoria }}
+            </div>
+            <div class="justify-self-end">
+                <button type="submit" class="px-5 py-2 border border-black rounded-full bg-[#A5A58D] hover:brightness-110">Editar Producto</button>
+            </div>
+        </form>
+    </section>
+{% endblock %}

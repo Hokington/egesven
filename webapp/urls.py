@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 urlpatterns = [
@@ -9,5 +9,9 @@ urlpatterns = [
     path('checkout/', views.checkout, name="checkout"),
     path('register/',views.register, name='register'),
     path('login/', views.loginView, name='login'),
-    path('logout/',  views.logoutView, name='logout')
+    path('logout/',  views.logoutView, name='logout'),
+    path('admin/',views.adminView, name='admin'),
+
+    # Products CRUD
+    path('admin/productos/', include('webapp.products.urls')),
 ]

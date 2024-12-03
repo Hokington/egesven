@@ -1,0 +1,24 @@
+{% extends 'base.html' %} {% load static %} {% block title %} Inicio {% endblock %} {% block content %}
+    <section class="max-w-screen-lg mx-auto">
+        <div class="flex justify-between items-baseline">
+            <h1 class="text-3xl font-semibold text-center mb-8">Lista de productos</h1>
+            <a class="px-5 py-2 border border-black rounded-full bg-[#A5A58D] hover:brightness-110" href="{% url 'products:create' %}">Agregar producto</a>
+        </div>
+            <ul>
+                {% for product in products %}
+                    <li class="flex justify-between px-4 py-2 bg-[#F0EFEB] border border-[#A5A58D] rounded mb-2">
+                        <div class="flex gap-2 items-center justify-center text-sm text-gray-800">
+                            <img src="{% static 'media/vinyl.jpg' %}" class="max-w-24 mr-4 inline-block" alt="imagen de referencia">
+                            <h2 class="inline-block uppercase w-48">{{ product.nombre }}</h2>
+                            <p class="inline-block w-24">$ {{ product.precio }}</p>
+                            <p class="inline-block w-24">Stock: {{ product.stock }}</p>
+                        </div>
+                        <div class="flex items-center justify-end gap-6">
+                            <a class="px-5 py-2 border border-black rounded-full hover:bg-black hover:text-white transition-colors " href="{% url 'products:edit' product.pk %}">Editar</a>
+                            <a class="px-5 py-2 border border-black rounded-full hover:bg-black hover:text-white transition-colors " href="{% url 'products:delete' product.pk %}">Eliminar</a>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+    </section>
+{% endblock %}

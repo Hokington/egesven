@@ -33,6 +33,14 @@ TO DO:
       <img src="{% static 'media/cart.svg' %}" alt="Carrito" />
       <div class="bg-blue-700 rounded-full text-xs text-center text-white grid place-content-center w-6 h-6 absolute -bottom-3 -right-3"> <span id="carrito-contador">0</span> </div>
     </a>
+    {% if user.role == 'administrativo' or user.role == 'admin' %}
+      <a
+      class="px-4 py-2 border border-black rounded-full"
+      href="{% url 'admin' %}"
+      >
+        Panel de Administrador
+      </a>
+    {% endif %}
     <a
       class="px-4 py-2 border border-black rounded-full"
       href="{% url 'logout' %}"

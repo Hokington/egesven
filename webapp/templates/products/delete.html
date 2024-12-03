@@ -1,0 +1,33 @@
+{% extends 'base.html' %} {% load static %} {% block title %} Inicio {% endblock %} {% block content %}
+    <section class="max-w-screen-sm mx-auto">
+        <div class="flex justify-between items-baseline">
+            <h1 class="text-3xl font-semibold text-center mb-8">Eliminar producto</h1>
+            <a class="px-5 py-2 border border-black rounded-full bg-[#A5A58D] hover:brightness-110" href="{% url 'products:list' %}">Volver</a>
+        </div>
+        <div class="grid place-content-center">
+            <div class="inline-flex flex-col justify-center px-4 py-2 bg-[#F0EFEB] border border-[#A5A58D] rounded">
+                <h2 class="text-2xl font-semibold mb-3">Título: {{ product.nombre }}</h2>
+                <div class="inline-flex">
+                    <p class="w-36">Descripcion: </p>
+                    <p class="">{{ product.descripcion }}</p>
+                </div>
+                <div class="inline-flex">
+                    <p class="w-36">Precio: </p>
+                    <p>$ {{ product.precio }}</p>
+                </div>
+                <div class="inline-flex">
+                    <p class="w-36">Stock: </p>
+                    <p>{{ product.stock }}</p>
+                </div>
+                <div class="inline-flex">
+                    <p class="w-36">Categoria: </p>
+                    <p>{{ product.categoria }}</p>
+                </div>
+                <form method="POST">
+                    {% csrf_token %}
+                    <button class="mt-6 px-5 py-2 border border-black rounded-full bg-black text-white hover:bg-gray-800 transition-colors">Eliminar</button>
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -10,9 +10,8 @@ from django.contrib.auth.hashers import make_password, check_password
 User = get_user_model()
 
 def index(request):
-    productos = Producto.objects.all()
-
-    return render(request, 'index.html', {'productos': productos})
+    products = Producto.objects.all().order_by('-id')
+    return render(request, 'index.html', {'productos': products})
 
 def buscar_producto(request):
     query = request.GET.get('q')
@@ -91,3 +90,9 @@ def loginView(request):
 def logoutView(request):
     logout(request)
     return redirect('login')
+
+
+# Admin Views
+
+def adminView(request):
+    return render(request, 'administration/index.html')

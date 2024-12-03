@@ -18,6 +18,7 @@ class Producto(models.Model):
     def __str__(self):
         return self.nombre
 
+
 class UsuarioManager(BaseUserManager):
     def create_user(self, username, email, password=None, **extra_fields):
         if not email:
@@ -39,6 +40,7 @@ class UsuarioManager(BaseUserManager):
 
         return self.create_user(username, email, password, **extra_fields)
     
+
 class Usuario(AbstractBaseUser, PermissionsMixin):
     ROLE_CHOICES = [
         ('cliente', 'Cliente'),

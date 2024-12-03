@@ -9,6 +9,14 @@ class AuthMiddleware:
             rutas_libres = ['/login/', '/register/']
             if not request.path in rutas_libres:
                 return redirect('login')
+        else:
+            if request.path.startswith('/admin/usuarios/'):
+                if request.user.role != 'admin':
+                    return redirect('login')
+            elif request.path.startswith('/admin/'):
+                if request.user.role not in ('administrativo', 'admin'):
+                    return redirect('login')
+
 
         response = self.get_response(request)
         return response
