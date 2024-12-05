@@ -1,0 +1,80 @@
+{% extends 'base.html' %} {% load static %} {% block title %} Inicio {% endblock %} {% block content %}
+    <section class="max-w-screen-lg mx-auto">
+
+        
+
+<div class="relative overflow-x-auto">
+        <h1  class="text-3xl font-semibold mb-4">Pedidos</h1>
+        <div class="relative overflow-x-auto sm:rounded-lg">
+            <table class="w-full text-sm text-left text-gray-500">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">Pedido ID</th>
+                        <th scope="col" class="px-6 py-3">Estado</th>
+                        <th scope="col" class="px-6 py-3">Usuario</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pedido in pedidos %}
+                    <tr class="odd:bg-white even:bg-gray-50 border-b">
+                        <td class="px-6 py-4">{{ pedido.id }}</td>
+                        <td class="px-6 py-4">{{ pedido.estado }}</td>
+                        <td class="px-6 py-4">{{ pedido.usuario.username }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="relative overflow-x-auto sm:rounded-lg mt-8">
+            <table class="w-full text-sm text-left text-gray-500">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">Pago ID</th>
+                        <th scope="col" class="px-6 py-3">Método</th>
+                        <th scope="col" class="px-6 py-3">Monto</th>
+                        <th scope="col" class="px-6 py-3">Estado</th>
+                        <th scope="col" class="px-6 py-3">Pedido</th>
+                        <th scope="col" class="px-6 py-3">Usuario</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pago in pagos %}
+                    <tr class="odd:bg-white even:bg-gray-50 border-b">
+                        <td class="px-6 py-4">{{ pago.id }}</td>
+                        <td class="px-6 py-4">{{ pago.metodo }}</td>
+                        <td class="px-6 py-4">${{ pago.monto }}</td>
+                        <td class="px-6 py-4">{{ pago.estado }}</td>
+                        <td class="px-6 py-4">{{ pago.pedido.id }}</td>
+                        <td class="px-6 py-4">{{ pago.usuario.username }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="relative overflow-x-auto sm:rounded-lg mt-8">
+            <table class="w-full text-sm text-left text-gray-500">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">Despacho ID</th>
+                        <th scope="col" class="px-6 py-3">Dirección</th>
+                        <th scope="col" class="px-6 py-3">Estado</th>
+                        <th scope="col" class="px-6 py-3">Pedido</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for despacho in despachos %}
+                    <tr class="odd:bg-white even:bg-gray-50 border-b">
+                        <td class="px-6 py-4">{{ despacho.id }}</td>
+                        <td class="px-6 py-4">{{ despacho.direccion_envio }}</td>
+                        <td class="px-6 py-4">{{ despacho.estado_despacho }}</td>
+                        <td class="px-6 py-4">{{ despacho.pedido.id }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+    </section>
+{% endblock %}

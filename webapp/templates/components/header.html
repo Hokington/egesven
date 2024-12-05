@@ -31,9 +31,9 @@ TO DO:
     </div>
     <a class="relative" href="{% url 'carrito' %}">
       <img src="{% static 'media/cart.svg' %}" alt="Carrito" />
-      <div class="bg-blue-700 rounded-full text-xs text-center text-white grid place-content-center w-6 h-6 absolute -bottom-3 -right-3"> <span id="carrito-contador">0</span> </div>
+      <div id="cart-bubble" class="bg-blue-700 rounded-full text-xs text-center text-white grid place-content-center w-6 h-6 absolute -bottom-3 -right-3"> <span id="carrito-contador">0</span> </div>
     </a>
-    {% if user.role == 'administrativo' or user.role == 'admin' %}
+    {% if user.role == 'administrativo' or user.role == 'superadmin' %}
       <a
       class="px-4 py-2 border border-black rounded-full"
       href="{% url 'admin' %}"
@@ -62,3 +62,20 @@ TO DO:
   </div>
   {% endif %}
 </header>
+
+<style>
+  .bounce {
+  animation: bounce 1s;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(-25%);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+</style>

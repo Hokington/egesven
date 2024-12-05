@@ -1,16 +1,16 @@
+from webapp.models import Producto, Categoria, Pedido, DetallePedido, Pago, Despacho
+from django.contrib.auth import authenticate, login, get_user_model, logout
+from django.contrib.auth.hashers import make_password, check_password
 from django.shortcuts import render, get_object_or_404, redirect
-from webapp.models import Producto, Categoria
+from django.utils.timezone import now
+from django.http import JsonResponse
 from django.db.models import Q
 import json
-from django.contrib.auth import authenticate, login
-from django.contrib.auth import get_user_model
-from django.contrib.auth import logout
-from django.contrib.auth.hashers import make_password, check_password
 
 User = get_user_model()
 
 def index(request):
-    products = Producto.objects.all().order_by('-id')
+    products = Producto.objects.filter(stock__gt=0).order_by('-id')
     return render(request, 'index.html', {'productos': products})
 
 def buscar_producto(request):
@@ -54,7 +54,56 @@ def carrito(request):
     return render(request, 'carrito.html', {'productos': productos, 'total': total})
 
 def checkout(request):
-    return render(request, 'checkout.html')
+    carrito = request.COOKIES.get('cart')
+    carrito = json.loads(carrito)
+
+    total = 0
+    for item in carrito:
+        producto = Producto.objects.get(id=item["id"])
+        subtotal = producto.precio * item["quantity"]
+        total += subtotal
+    
+    if request.method == 'POST':
+        usuario = request.user
+
+        pedido = Pedido.objects.create(
+            usuario=usuario,
+            estado='Pagado'
+        )
+
+        for item in carrito:
+            producto = get_object_or_404(Producto, id=item["id"])
+            DetallePedido.objects.create(
+                pedido=pedido,
+                producto=producto,
+                cantidad=item["quantity"]
+            )
+            producto.stock -= item["quantity"]
+            producto.save()
+
+        Pago.objects.create(
+            metodo='Tarjeta',
+            monto=total,
+            estado='Procesado',
+            pedido=pedido,
+            usuario=usuario
+        )
+
+        # Crear el despacho
+        Despacho.objects.create(
+            direccion_envio=request.POST.get('direccion_envio'),
+            fecha_envio=now().date(),
+            estado_despacho='Preparando',
+            pedido=pedido
+        )
+
+        # Limpiar el carrito de la sesión
+        return redirect('success')
+
+    return render(request, 'checkout.html', {'total': total})
+
+def success(request):
+    return render(request, 'success.html')
 
 def register(request):
     if request.method == 'POST':
@@ -96,3 +145,14 @@ def logoutView(request):
 
 def adminView(request):
     return render(request, 'administration/index.html')
+
+def deliveries(request):
+    pedidos = Pedido.objects.all()
+    pagos = Pago.objects.all()
+    despachos = Despacho.objects.all()
+
+    return render(request, 'administration/deliveries.html', {
+        'pedidos': pedidos,
+        'pagos': pagos,
+        'despachos': despachos,
+    })

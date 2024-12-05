@@ -85,12 +85,11 @@ class DetallePedido(models.Model):
 class Pago(models.Model):
     metodo = models.CharField(max_length=50)
     monto = models.DecimalField(max_digits=10, decimal_places=2)
-    pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE, related_name='pagos')
     fecha_pago = models.DateTimeField(auto_now_add=True)
     estado = models.CharField(max_length=50)
-    usuario = models.ForeignKey('Usuario', on_delete=models.CASCADE, related_name='pagos')
-    pedido = models.ForeignKey('Pedido', on_delete=models.CASCADE, related_name='pagos')
-    
+    pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE, related_name='pagos')
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='pagos')
+
     def __str__(self):
         return f"Pago {self.id} - {self.monto} ({self.metodo})"
 

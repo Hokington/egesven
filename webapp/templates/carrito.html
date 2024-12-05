@@ -14,14 +14,20 @@
             <div class="bg-white px-8 h-10 rounded-md text-center grid place-content-center">
               <span class="text-lg">{{ producto.cantidad }}</span>
             </div>
-            <button class="hover:brightness-90">
+            <button class="hover:brightness-50">
               <img class="h-10 rounded" src="{% static 'media/x.svg' %}" alt="{{ producto.producto }}">
             </button>
           </div>
         </div>
         {% endfor %}
+        {% if not productos %}
+          <p class="text-center italic text-gray-800 text-lg pt-12 max-w-prose mx-auto">Parece que no tienes productos agregados en el carrito, te invitamos a revisar <a class="underline text-blue-800" href="{% url 'index' %}">nuestro catálogo</a></p>
+        {% endif %}
     </ul>
-    <div class="pt-12">
+    <div class="pt-12 space-x-12">
+      <button id="clear-cart" class="hover:bg-[#EDDCD2] transition-colors hover:brightness-105 px-6 py-2 border border-black rounded-full font-lg">
+        Vaciar carrito
+      </button>
       <a class="bg-[#EDDCD2] hover:brightness-105 px-6 py-2 border border-black rounded-full font-lg" href="{% url 'checkout' %}">Ir al Checkout</a>
     </div>
 </section>

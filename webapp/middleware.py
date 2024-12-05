@@ -11,10 +11,10 @@ class AuthMiddleware:
                 return redirect('login')
         else:
             if request.path.startswith('/admin/usuarios/'):
-                if request.user.role != 'admin':
+                if request.user.role != 'superadmin':
                     return redirect('login')
             elif request.path.startswith('/admin/'):
-                if request.user.role not in ('administrativo', 'admin'):
+                if request.user.role not in ('administrativo', 'superadmin'):
                     return redirect('login')
 
 
